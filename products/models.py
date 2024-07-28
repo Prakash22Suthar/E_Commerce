@@ -33,11 +33,12 @@ class Product(BaseModel):
     """
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
-    unique_code = models.CharField(max_length=255, unique=True)
+    product_code = models.CharField(max_length=255, unique=True)
     image = models.ImageField(upload_to="products/images/", null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name="products")
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, related_name="products")
     price = models.FloatField(null=True, blank=True, default=0)
+    weight = models.FloatField(null=True, blank=True, default=0.0)
 
     def __str__(self) -> str:
         return self.name

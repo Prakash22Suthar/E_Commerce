@@ -1,3 +1,4 @@
+from typing import Any
 from django.db import models
 
 from base.models import BaseModel
@@ -28,18 +29,17 @@ class Orders(BaseModel):
         (CANCELED, "Canceled"),
     )
 
-    order_id = models.CharField(max_length=255, unique=True)
-    order_created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="orders")
+    order_number = models.CharField(max_length=255, unique=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="orders")
     status = models.CharField(max_length=50, choices=order_status,default=PENDING)
     delevery_address = models.CharField(max_length=255, null=True, blank=True)
     
-    def __str__(self) -> str:
-        return self.order_id
-
 class Orderitem(models.Model):
-    order = models.ForeignKey(Orders, on_delete=models.CASCADE, related_name="order_item")
-    items = models.ForeignKey(Product, on_delete=models.DO_NOTHING, related_name="order_item")
+    order = models.ForeignKey(Orders, on_delete=models.CASCADE, related_name="order_items")
+    items = models.ForeignKey(Product, on_delete=models.DO_NOTHING, related_name="order_items")
     quantity = models.PositiveIntegerField(default=0)
     amount = models.FloatField(null=True, blank=True)
+
+
     
     

@@ -5,5 +5,5 @@ from .models import Product
 
 @admin.register(Product)
 class Product(admin.ModelAdmin):
-    list_display = ["id", "name", "unique_code","category"]
+    list_display = ["id", "name", "product_code","category"]
     list_display_links = ["name"]
