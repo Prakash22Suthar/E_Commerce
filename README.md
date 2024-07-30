@@ -8,7 +8,7 @@ In This project is about the E-Commerce Backend Application where mainly** three
 3. **Orders**: orders with order items information.
 
 **More things are adding soon:**
-1.** (Celery and Twilio Integration )**Send email and mobile/whatsapp message for important updates to user.
+1. (**Celery and Twilio Integration**) Send email and mobile/whatsapp message for important updates to user.
 2. **Middleware's**
 3. order **delivery satatus updates** (transportation update)
    
