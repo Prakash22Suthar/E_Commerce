@@ -2,7 +2,7 @@
 
 This is DRF Application where **CRURD, Authentication, Permission, Throttling (for authenticated User and Anon user)** are implemented with efficient code, all module includes DocStrings so user get better understanding to the modules and function created for.
 
-In This project is about the E-Commerce Backend Application where mainly** three module**:
+In This project is about the E-Commerce Backend Application where mainly **Three Module**:
 1. **User**: normal user, staff user, admin(superadmin).
 2. **Products**: product with category and subcategory.
 3. **Orders**: orders with order items information.
