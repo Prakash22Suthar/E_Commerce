@@ -14,6 +14,8 @@ To get better understanding to **API's Documentation Added**:**
 **Swagger File**
 
 
+
+
 **More things are adding soon:**
 1. (**Celery and Twilio Integration**) Send email and mobile/whatsapp message for important updates to user.
 2. **Middleware's**
