@@ -1,4 +1,5 @@
 E-Commerce (API's Backend)
+
 This is DRF Application where CRURD, Authentication, Permission, Throttling (for authenticated User and Anon user) are implemented with efficient code, all module includes DocStrings so user get better understanding to the modules and function created for.
 
 In This project is about the E-Commerce Backend Application where mainly three module:
