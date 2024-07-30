@@ -1,0 +1,798 @@
+openapi: 3.0.3
+info:
+  title: E-commerse
+  version: 1.0.0
+  contact: {}
+servers:
+  - url: http://127.0.0.1:8000/api/
+  - url: http://127.0.0.1
+paths:
+  /login/:
+    post:
+      tags:
+        - login and refresh token
+      summary: login
+      description: login
+      operationId: login
+      parameters:
+        - name: email
+          in: query
+          schema:
+            type: string
+            example: naveen2@yopmail.com
+        - name: password
+          in: query
+          schema:
+            type: string
+            example: demo@123
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: naveen2@yopmail.com
+                password:
+                  type: string
+                  example: demo@123
+            examples:
+              login:
+                value:
+                  email: naveen2@yopmail.com
+                  password: demo@123
+      responses:
+        '200':
+          description: ''
+  /refresh-token/:
+    post:
+      tags:
+        - login and refresh token
+      summary: refresh_token
+      description: refresh_token
+      operationId: refreshToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refresh:
+                  type: string
+                  example: >-
+                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyMjMzMzcyMiwiaWF0IjoxNzIyMjQ3MzIyLCJqdGkiOiIwMTg1NjEzOTcwZTU0ODM2OWM1NGRkY2M4M2ZjMWY5ZSIsInVzZXJfaWQiOjE1fQ.MoiwqhU5Is51kNRrOuLnAPsXIIz3yo4Qm5TkVZZLo_w
+            examples:
+              refresh_token:
+                value:
+                  refresh: >-
+                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyMjMzMzcyMiwiaWF0IjoxNzIyMjQ3MzIyLCJqdGkiOiIwMTg1NjEzOTcwZTU0ODM2OWM1NGRkY2M4M2ZjMWY5ZSIsInVzZXJfaWQiOjE1fQ.MoiwqhU5Is51kNRrOuLnAPsXIIz3yo4Qm5TkVZZLo_w
+      responses:
+        '200':
+          description: ''
+  /token-verify/:
+    post:
+      tags:
+        - login and refresh token
+      summary: verify_token
+      description: verify_token
+      operationId: verifyToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  example: >-
+                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMDE2OTMzLCJpYXQiOjE3MjIwMTY2MzMsImp0aSI6IjMxZjQ0NmJkOTk3YzQ2MTFhZjIwNjZlOGRlYTA1Yzc0IiwidXNlcl9pZCI6MTV9.R6wlYxvDrfB0Hs6BKrUAJErcK8pshkVij_OcwiSgVlc
+            examples:
+              verify_token:
+                value:
+                  token: >-
+                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMDE2OTMzLCJpYXQiOjE3MjIwMTY2MzMsImp0aSI6IjMxZjQ0NmJkOTk3YzQ2MTFhZjIwNjZlOGRlYTA1Yzc0IiwidXNlcl9pZCI6MTV9.R6wlYxvDrfB0Hs6BKrUAJErcK8pshkVij_OcwiSgVlc
+      responses:
+        '200':
+          description: ''
+  /users/:
+    get:
+      tags:
+        - user
+      summary: user_list
+      description: user_list
+      operationId: userList
+      parameters:
+        - name: ordering
+          in: query
+          schema:
+            type: string
+            example: '-email'
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+    post:
+      tags:
+        - user
+      summary: user_create
+      description: user_create
+      operationId: userCreate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                address:
+                  type: string
+                  example: jhunjhunu
+                dob:
+                  nullable: true
+                  example: null
+                email:
+                  type: string
+                  example: naveen2@yopmail.com
+                first_name:
+                  type: string
+                  example: naveen
+                gender:
+                  type: string
+                  example: m
+                last_name:
+                  type: string
+                  example: kumar
+                mobile_no:
+                  type: number
+                  example: 12354684
+                password:
+                  type: string
+                  example: demo@123
+                username:
+                  type: string
+                  example: naveenkumar2
+            examples:
+              user_create:
+                value:
+                  address: jhunjhunu
+                  dob: null
+                  email: naveen2@yopmail.com
+                  first_name: naveen
+                  gender: m
+                  last_name: kumar
+                  mobile_no: 12354684
+                  password: demo@123
+                  username: naveenkumar2
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /users/14/:
+    get:
+      tags:
+        - user
+      summary: user_detail
+      description: user_detail
+      operationId: userDetail
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /users/3/:
+    put:
+      tags:
+        - user
+      summary: user_update
+      description: user_update
+      operationId: userUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                address:
+                  type: string
+                  example: sikar
+                dob:
+                  nullable: true
+                  example: null
+                email:
+                  type: string
+                  example: naveen@yopmail.com
+                first_name:
+                  type: string
+                  example: naveen2
+                gender:
+                  type: string
+                  example: m
+                last_name:
+                  type: string
+                  example: kumar
+                mobile_no:
+                  type: number
+                  example: 12354684
+                username:
+                  type: string
+                  example: naveenkumar
+            examples:
+              user_update:
+                value:
+                  address: sikar
+                  dob: null
+                  email: naveen@yopmail.com
+                  first_name: naveen2
+                  gender: m
+                  last_name: kumar
+                  mobile_no: 12354684
+                  username: naveenkumar
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /users/2/:
+    delete:
+      tags:
+        - user
+      summary: user_delete
+      description: user_delete
+      operationId: userDelete
+      responses:
+        '200':
+          description: ''
+  /products/:
+    get:
+      tags:
+        - products
+      summary: product_list
+      description: product_list
+      operationId: productList
+      responses:
+        '200':
+          description: ''
+    post:
+      tags:
+        - products
+      summary: product_add
+      description: product_add
+      operationId: productAdd
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category:
+                  type: number
+                  example: 2
+                description:
+                  type: string
+                  example: best android mobile phone
+                name:
+                  type: string
+                  example: Google Pixel2
+                price:
+                  type: number
+                  example: 85666
+                product_code:
+                  type: string
+                  example: mobile_145421544
+                subcategory:
+                  type: number
+                  example: 1
+                weight:
+                  type: number
+                  example: 2
+            examples:
+              product_add:
+                value:
+                  category: 2
+                  description: best android mobile phone
+                  name: Google Pixel2
+                  price: 85666
+                  product_code: mobile_145421544
+                  subcategory: 1
+                  weight: 2
+      responses:
+        '200':
+          description: ''
+  /products/2/:
+    get:
+      tags:
+        - products
+      summary: product_detail
+      description: product_detail
+      operationId: productDetail
+      responses:
+        '200':
+          description: ''
+    put:
+      tags:
+        - products
+      summary: product_update
+      description: product_update
+      operationId: productUpdate
+      parameters:
+        - name: partial
+          in: query
+          schema:
+            type: string
+            example: 'True'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category:
+                  type: number
+                  example: 2
+                description:
+                  type: string
+                  example: best android mobile phone
+                image:
+                  nullable: true
+                  example: null
+                name:
+                  type: string
+                  example: Google Pixel2
+                price:
+                  type: number
+                  example: 85666
+                product_code:
+                  type: string
+                  example: mobile_145421544
+                subcategory:
+                  type: number
+                  example: 1
+                weight:
+                  type: number
+                  example: 2
+            examples:
+              product_update:
+                value:
+                  category: 2
+                  description: best android mobile phone
+                  image: null
+                  name: Google Pixel2
+                  price: 85666
+                  product_code: mobile_145421544
+                  subcategory: 1
+                  weight: 2
+      responses:
+        '200':
+          description: ''
+  /products/4/:
+    delete:
+      tags:
+        - products
+      summary: product_delete
+      description: product_delete
+      operationId: productDelete
+      responses:
+        '200':
+          description: ''
+  /category/:
+    get:
+      tags:
+        - product category & subcategory
+        - Category
+      summary: category_list
+      description: category_list
+      operationId: categoryList
+      responses:
+        '200':
+          description: ''
+    post:
+      tags:
+        - product category & subcategory
+        - Category
+      summary: category_add
+      description: category_add
+      operationId: categoryAdd
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  example: all electronic items.
+                name:
+                  type: string
+                  example: electronic
+            examples:
+              category_add:
+                value:
+                  description: all electronic items.
+                  name: electronic
+      responses:
+        '200':
+          description: ''
+  /category/2/:
+    put:
+      tags:
+        - product category & subcategory
+        - Category
+      summary: category_udpate
+      description: category_udpate
+      operationId: categoryUdpate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  example: all electronic items.
+                name:
+                  type: string
+                  example: electronic
+            examples:
+              category_udpate:
+                value:
+                  description: all electronic items.
+                  name: electronic
+      responses:
+        '200':
+          description: ''
+  /category/1/:
+    delete:
+      tags:
+        - product category & subcategory
+        - Category
+      summary: category_delete
+      description: category_delete
+      operationId: categoryDelete
+      responses:
+        '200':
+          description: ''
+  /sub-category/:
+    get:
+      tags:
+        - product category & subcategory
+        - Sub-Category
+      summary: sub_category_list
+      description: sub_category_list
+      operationId: subCategoryList
+      responses:
+        '200':
+          description: ''
+    post:
+      tags:
+        - product category & subcategory
+        - Sub-Category
+      summary: sub_category_add
+      description: sub_category_add
+      operationId: subCategoryAdd
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category:
+                  type: number
+                  example: 2
+                description:
+                  type: string
+                  example: all electronic items
+                name:
+                  type: string
+                  example: mobile phone
+            examples:
+              sub_category_add:
+                value:
+                  category: 2
+                  description: all electronic items
+                  name: mobile phone
+      responses:
+        '200':
+          description: ''
+  /sub-category/1/:
+    put:
+      tags:
+        - product category & subcategory
+        - Sub-Category
+      summary: sub_category_udpate
+      description: sub_category_udpate
+      operationId: subCategoryUdpate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category:
+                  type: number
+                  example: 2
+                description:
+                  type: string
+                  example: mobile phone
+                name:
+                  type: string
+                  example: mobile phone
+            examples:
+              sub_category_udpate:
+                value:
+                  category: 2
+                  description: mobile phone
+                  name: mobile phone
+      responses:
+        '200':
+          description: ''
+  /sub-category/3/:
+    delete:
+      tags:
+        - product category & subcategory
+        - Sub-Category
+      summary: sub_category_delete
+      description: sub_category_delete
+      operationId: subCategoryDelete
+      responses:
+        '200':
+          description: ''
+  /orders/:
+    get:
+      tags:
+        - orders
+      summary: order_list
+      description: order_list
+      operationId: orderList
+      parameters:
+        - name: order_number
+          in: query
+          schema:
+            type: string
+            example: order_277151897
+        - name: search
+          in: query
+          schema:
+            type: string
+            example: naveen2@yopmail.com
+        - name: ordering
+          in: query
+          schema:
+            type: string
+            example: order_number
+        - name: filter_by
+          in: query
+          schema:
+            type: string
+            example: username
+        - name: username
+          in: query
+          schema:
+            type: string
+            example: naveenkumar
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+    post:
+      tags:
+        - orders
+      summary: order_create
+      description: order_create
+      operationId: orderCreate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                created_by:
+                  type: number
+                  example: 1
+                delevery_address:
+                  type: string
+                  example: ahmedabad
+                order_items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product_id:
+                        type: number
+                        example: 2
+                      quantity:
+                        type: number
+                        example: 1
+                  example:
+                    - product_id: 2
+                      quantity: 1
+                status:
+                  type: string
+                  example: pending
+            examples:
+              order_create:
+                value:
+                  created_by: 1
+                  delevery_address: ahmedabad
+                  order_items:
+                    - product_id: 2
+                      quantity: 1
+                  status: pending
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /orders/59/:
+    put:
+      tags:
+        - orders
+      summary: order_create Copy
+      description: order_create Copy
+      operationId: orderCreateCopy
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                created_by:
+                  type: number
+                  example: 1
+                delevery_address:
+                  type: string
+                  example: ahmedabad
+                order_items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 27
+                      product_id:
+                        type: number
+                        example: 2
+                      quantity:
+                        type: number
+                        example: 1
+                  example:
+                    - id: 27
+                      product_id: 2
+                      quantity: 1
+                status:
+                  type: string
+                  example: pending
+            examples:
+              order_create Copy:
+                value:
+                  created_by: 1
+                  delevery_address: ahmedabad
+                  order_items:
+                    - id: 27
+                      product_id: 2
+                      quantity: 1
+                  status: pending
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /orders/3/:
+    delete:
+      tags:
+        - orders
+      summary: order_delete
+      description: order_delete
+      operationId: orderDelete
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /api/users/:
+    get:
+      tags:
+        - e-commerce 1
+      summary: user_list
+      description: user_list
+      operationId: userList1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: demouser2@yopmail.com
+                password:
+                  type: string
+                  example: demo@123
+                username:
+                  type: string
+                  example: demouser2
+            examples:
+              user_list:
+                value:
+                  email: demouser2@yopmail.com
+                  password: demo@123
+                  username: demouser2
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+    post:
+      tags:
+        - e-commerce 1
+      summary: user_create
+      description: user_create
+      operationId: userCreate1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: demouser2@yopmail.com
+                password:
+                  type: string
+                  example: demo@123
+                username:
+                  type: string
+                  example: demouser2
+            examples:
+              user_create:
+                value:
+                  email: demouser2@yopmail.com
+                  password: demo@123
+                  username: demouser2
+      responses:
+        '200':
+          description: ''
+  /api/login/:
+    post:
+      tags:
+        - e-commerce 1
+      summary: login
+      description: login
+      operationId: login1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: demouser2@yopmail.com
+                password:
+                  type: string
+                  example: demo@123
+            examples:
+              login:
+                value:
+                  email: demouser2@yopmail.com
+                  password: demo@123
+      responses:
+        '200':
+          description: ''
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+tags:
+  - name: login and refresh token
+  - name: user
+  - name: products
+  - name: product category & subcategory
+  - name: Category
+  - name: Sub-Category
+  - name: orders
+  - name: e-commerce 1
