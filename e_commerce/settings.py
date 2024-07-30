@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'users',
     # Third Party Apps
     'rest_framework',
-    'rest_framework_simplejwt'
+    'rest_framework_simplejwt',
+    'django_filters',
 ]
 
 
@@ -148,15 +149,39 @@ AUTH_USER_MODEL = "users.User"
 
 # jwt settings
 
-# REST_FRAMEWORK = {
-#     "DEFAULT_AUTHENTICATION_CLASSES":(
-#         "rest_framework_simplejwt.authentication.JWTAuthentication",
-#     )
-# }
+REST_FRAMEWORK = {
+    # "DEFAULT_AUTHENTICATION_CLASSES":(
+    #     "rest_framework_simplejwt.authentication.JWTAuthentication",
+    # ),
+    # "DEFAULT_FILET_BACKENDS": [
+    #     'django_filters.rest_framework.DjangoFilterBackend'
+    # ],
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # "PAGE_SIZE":5
+
+    # throttling rate setting
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '2/day',
+        "user": "10/day",
+    }
+
+    # test cases setting
+    # 'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    # 'TEST_REQUEST_RENDERER_CLASSES': [
+    #     'rest_framework.renderers.MultiPartRenderer',
+    #     'rest_framework.renderers.JSONRenderer',
+    #     'rest_framework.renderers.TemplateHTMLRenderer'
+    # ],
+}
 
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=10),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "ROTATE_REFRESH_TOKENS": False,
 }

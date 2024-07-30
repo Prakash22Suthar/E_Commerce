@@ -27,14 +27,14 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
 
-    """ serailizer to get order and its item data"""
+    """ serailizer to get order and its item data only used in detail of order"""
 
     order_items = serializers.SerializerMethodField()
-    # created_by = serializers.SerializerMethodField()
+    created_by = serializers.SerializerMethodField()
     order_date = serializers.SerializerMethodField()
     class Meta:
         model = Orders
-        fields = ["order_number","order_date","status","delevery_address", "created_by","order_items"]
+        fields = ["id","order_number","order_date","status","delevery_address", "created_by","order_items"]
 
         extra_kwargs = {
             "order_number":{"read_only":True},
@@ -72,11 +72,15 @@ class OrderCreateUpdateSerializer(serializers.ModelSerializer):
         order_item = self.context.get("order_items")
         order_obj = Orders(**validated_data)
         last_order = Orders.objects.all().last()
-        if last_order:
-            last_order_number = int(last_order.order_number[3:])
-            new_order_number = f"ORD{last_order_number +1}"
-        else:
+        try:
+            if last_order:
+                last_order_number = int(last_order.order_number[3:])
+                new_order_number = f"ORD{last_order_number +1}"
+            else:
+                new_order_number = "ORD10001"
+        except ValueError :
             new_order_number = "ORD10001"
+
         with transaction.atomic():
             order_obj.order_number = new_order_number
             order_obj.save()
@@ -98,7 +102,7 @@ class OrderCreateUpdateSerializer(serializers.ModelSerializer):
                 order_item_id = item.get("id")
                 if order_item_id:
                     order_item = Orderitem.objects.filter(id=order_item_id).last()
-                    order_item.items = Product.objects.filter(id=item.get("product_id")).last()
+                    # order_item.items = Product.objects.filter(id=item.get("product_id")).last()
                     qty = item.get("quantity")
                     item_amount = float(order_item.items.price * qty)
                     order_item.quantity = qty 
@@ -111,7 +115,6 @@ class OrderCreateUpdateSerializer(serializers.ModelSerializer):
                     order_item.quantity = qty
                     order_item.amount = amount
                     order_item.order = instance
-
                 order_item.save()
 
         for key, value in validated_data.items():

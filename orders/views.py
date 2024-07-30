@@ -4,6 +4,9 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
+
 from django.db import transaction
 
 from users.models import User
@@ -11,6 +14,8 @@ from products.models import Product
 from .models import Orders, Orderitem
 from .serializers import OrderSerializer, OrderListSerializer,OrderCreateUpdateSerializer
 from .utils import generate_orderid
+from .filters import CustomFilter
+from .paginations import CustomPagination
 
 from base.renderers import CustomRenderer
 # Create your views here.
@@ -23,6 +28,15 @@ class OrderViewset(viewsets.ModelViewSet):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
     renderer_classes = [CustomRenderer]
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ["order_number"] 
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ["order_number"] 
+    # filter_backends = [SearchFilter]
+    filter_backends = [CustomFilter]
+    pagination_class = CustomPagination
+    # ordering_fields = ["order_number"]
+    # search_fields = ["order_number","created_by__email"]
 
     def get_serializer_class(self):
         actions = {
